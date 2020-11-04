@@ -26,4 +26,4 @@ WHEN I select a show
 THEN I am redirected to purchase tickets for the show
 ```
 
-Powered by (probable EventBrite or Ticketmaster) and [Google Maps](https://developers.google.com/maps/)
+Powered by (probably EventBrite or Ticketmaster) and [Google Maps](https://developers.google.com/maps/)
