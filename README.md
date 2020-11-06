@@ -28,4 +28,4 @@ WHEN I select a show
 THEN I am redirected to purchase tickets for the show
 ```
 
-Powered by [Songkick](https://www.songkick.com/developer/) and [Google Maps](https://developers.google.com/maps/)
+Powered by [Songkick](https://www.songkick.com/developer/) and *some map API*
