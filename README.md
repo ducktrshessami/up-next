@@ -28,4 +28,4 @@ WHEN I select a show
 THEN I am redirected to purchase tickets for the show
 ```
 
-Powered by (probably [Eventbrite](https://www.eventbrite.com/developer/v3/) or [Ticketmaster](http://developer.ticketmaster.com/products-and-docs/apis/getting-started/)) and [Google Maps](https://developers.google.com/maps/)
+Powered by [Songkick](https://www.songkick.com/developer/) and [Google Maps](https://developers.google.com/maps/)
