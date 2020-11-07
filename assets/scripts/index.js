@@ -7,11 +7,9 @@ if (lastSearch) {
 
 $(document.body).ready(function() {
     $("form").on("submit", function(event) {
-        let zip = zipSearch.val();
-
         event.preventDefault();
 
-        zpGetCoords(zip).then(() => {
+        zpGetCoords(zipSearch.val()).then(() => {
             window.location = "./venue-list.html";
         }).catch(console.error);
     });
