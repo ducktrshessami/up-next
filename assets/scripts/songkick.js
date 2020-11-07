@@ -12,7 +12,7 @@ As of right now the query is a little redundant since ZIP code is required, but 
 
 @return: a Promise<Array<object>> that resolves in a list of events
 */
-function skEventSearch(zip, query) {
+function skGetEventList(zip, query) {
     return new Promise(function(resolve, reject) {
         zpGetState(zip).then(async (coords) => {
             let maxPages = 1;
@@ -23,12 +23,37 @@ function skEventSearch(zip, query) {
                     method: "GET",
                     url: `${queryURL}&page=${i}`
                 });
-                maxPages = Math.ceil(currentPage.resultsPage.totalEntries / perPage);
+                maxPages = Math.ceil(currentPage.resultsPage.totalEntries / perPage); // I couldn't think of a way to only do this once and not defeat the purpose
                 results = results.concat(currentPage.resultsPage.results.event);
             }
             resolve(results);
         })
     });
+}
+
+/*
+Parse an event list into a venue list (with events in each venue)
+
+@param eventList: a list of events from skGetEventList
+
+@return: an Array<object> of venue objects
+*/
+function skGetVenueList(eventList) {
+    let venues = []
+    for (let i = 0; i < eventList.length; i++) {
+        if (eventList[i].venue.id) { // Only parse events that have venues
+            let vi = venues.findIndex(v => v.id == eventList[i].venue.id);
+            if (vi === -1) { // If venue not in list
+                vi = venues.length;
+                venues.push(eventList[i].venue);
+            }
+            if (!venues[vi].events) { // If new venue in list
+                venues[vi].events = [];
+            }
+            venues[vi].events.push(eventList[i]);
+        }
+    }
+    return venues;
 }
 
 /*
