@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Up Next</title>
+    <link rel="icon" type="image/png" href="./assets/images/App Icon.png"/>
 
     <!-- Style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -13,22 +14,35 @@
 <body>
     <!--Search bar -->
     <div class="container">
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <!-- Input of Zip Code to search venues-->  
+              <input placeholder="Search City..." id="search-city" type="text" class="validate center-align">
+            </div>
+          </div>
+        </form>
+    </div>
         <div class="row">
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12">
                   <!-- Input of Zip Code to search venues-->  
-                  <input placeholder="Search Zip Code" id="search-zip-code" type="text" class="validate center-align">
+                  <input placeholder="Search Zip Code..." id="search-zip-code" type="text" class="validate center-align">
                 </div>
               </div>
             </form>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Map div - div is empty so map can be appended here -->
     <class=container id="map-div"></class=container>
 
     <!-- Venue list div - div is empty so list of venues can be appended here -->
     <div class="container" id="venue-list"></div>
+=======
+>>>>>>> ac0f7ec38bdc6944c6cf332fafffc71006fa6c64
     
     <!-- Javascript -->
     <script src="./assets/scripts/index.js"></script>
