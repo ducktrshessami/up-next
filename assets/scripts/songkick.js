@@ -32,6 +32,11 @@ function skGetEventList(zip, query) {
 }
 
 /*
+Parse an event list into a venue list (with events in each venue)
+
+@param eventList: a list of events from skGetEventList
+
+@return: an Array<object> of venue objects
 */
 function skGetVenueList(eventList) {
     let venues = []
