@@ -25,5 +25,12 @@ Zippopotam.us API call to search for lat/lon coordinates
 }
 */
 function zpGetState(zip) {
-
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            method: "GET",
+            url: "http://api.zippopotam.us/us/" + zip
+        }).then((response) => {
+            console.log(response);
+        });
+    });
 }
