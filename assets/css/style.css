@@ -2,3 +2,9 @@
 #background {
   background-size: 10%;
 }
+
+
+#map {
+  height: 400px;
+  width: 100%;
+}
