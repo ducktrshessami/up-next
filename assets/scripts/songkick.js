@@ -13,3 +13,17 @@ As of right now the query is a little redundant since ZIP code is required, but 
 function skLocationSearch(zip, query) {
     
 }
+
+/*
+Zippopotam.us API call to search for lat/lon coordinates
+
+@param zip: a string containing the ZIP code
+
+@return: a Promise<object> that resolves in {
+    lat: string
+    lon: string
+}
+*/
+function zpGetState(zip) {
+
+}
