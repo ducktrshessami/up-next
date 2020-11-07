@@ -2,7 +2,7 @@
 function initMap() {
     
     // city search input
-    var searchCity = $("#search-city");
+    var searchCity = $("#search-city").val().trim();
     // The location of Uluru
     //const uluru = { lat: -25.344, lng: 131.036 };
     // The map, centered at Uluru
