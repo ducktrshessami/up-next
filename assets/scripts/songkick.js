@@ -20,17 +20,21 @@ Zippopotam.us API call to search for lat/lon coordinates
 @param zip: a string containing the ZIP code
 
 @return: a Promise<object> that resolves in {
-    lat: string
-    lon: string
+    lat: float
+    lon: float
 }
 */
 function zpGetState(zip) {
     return new Promise(function(resolve, reject) {
         $.ajax({
             method: "GET",
-            url: "http://api.zippopotam.us/us/" + zip
+            url: "http://api.zippopotam.us/us/" + zip,
+            error: reject
         }).then((response) => {
-            console.log(response);
+            resolve({
+                lat: parseFloat(response.places[0].latitude),
+                lon: parseFloat(response.places[0].longitude)
+            });
         });
     });
 }
