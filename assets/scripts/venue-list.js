@@ -35,6 +35,7 @@ flows as follows:
 */
 function displayVenueList(venueList) {
     //do stuff
+    console.log(venueList);
 }
 
 // Initialize and add the map

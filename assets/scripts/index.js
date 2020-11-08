@@ -9,7 +9,9 @@ $(document.body).ready(function() {
     $("form").on("submit", function(event) {
         event.preventDefault();
 
-        zpGetCoords(zipSearch.val()).then(() => {
+        lastSearch = zipSearch.val();
+        zpGetCoords(lastSearch).then(() => {
+            localStorage.setItem("lastSearch", lastSearch);
             window.location = "./venue-list.html";
         }).catch(console.error);
     });
