@@ -17,7 +17,7 @@ function zpGetCoords(zip) {
     return new Promise(function(resolve, reject) {
         $.ajax({
             method: "GET",
-            url: "http://api.zippopotam.us/us/" + zip,
+            url: "https://api.zippopotam.us/us/" + zip,
             error: reject
         }).then((response) => {
             resolve({
