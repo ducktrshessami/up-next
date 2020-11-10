@@ -6,3 +6,12 @@ body {
     height: 400px;
     width: 100%;
 }
+
+#venue-details {
+    padding-bottom: 1.5vw;
+}
+
+.venue-image {
+    float: right;
+    width: 40%;
+}
