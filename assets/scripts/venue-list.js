@@ -41,17 +41,24 @@ function displayVenueList(venueList) {
 // Initialize and add the map
 function initMap() {    
     // city search input
-    var searchZipCode = $("#search-zip-code").val().trim();
-    // The location of Uluru
-    //const uluru = { lat: -25.344, lng: 131.036 };
-    // The map, centered at Uluru
+    var searchZipCode = $("#search-zip-code").val();
+    // The location of San Diego
+    const sanDiego = { lat: 32.7162, lng: 117.1324 };
+    // The map, centered at San Diego
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
-        center: searchZipCode,
-        //center: uluru,
+        //center: searchZipCode,
+        center: sanDiego,
     });
+
     // The marker, positioned at Uluru
     const marker = new google.maps.Marker({
+        // for loop to grab the lat and lon of the first 25 venues
+        for (var i 0; i < 25; i++) {
+            // Need to create an array of objects with lat and lon so that
+            // venue locations can be marked on map
+            
+        }
         //position: uluru,
         position: searchZipCode,
         map: map,
