@@ -77,3 +77,20 @@ function skGetVenueList(eventList) {
     }
     return venues;
 }
+
+/*
+Get the extended Venue object from a venue's ID
+
+@param id: a Number containing the venue's id
+
+@return: a Promise<object> that resolves in the Venue object
+*/
+function skGetVenueDetails(id) {
+    return new Promise(async function(resolve, reject) {
+        $.ajax({
+            method: "GET",
+            url: `https://api.songkick.com/api/3.0/venues/${id}.json?apikey=${skapi1}`,
+            error: reject
+        }).then(response => resolve(response.resultsPage.results.venue));
+    });
+}
