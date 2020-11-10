@@ -1,6 +1,11 @@
 body {
     background-image: url("../images/1701895714-huge.jpg");
 }
+.collection {
+  opacity: 60%;
+  margin: 20px;
+
+}
 
 #map {
     height: 400px;
