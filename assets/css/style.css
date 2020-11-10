@@ -1,9 +1,8 @@
 body {
     background-image: url("../images/1701895714-huge.jpg");
 }
-.collection {
+.card {
   opacity: 60%;
-  margin: 20px;
 
 }
 
