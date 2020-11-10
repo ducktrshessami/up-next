@@ -19,6 +19,7 @@
                 <div class="card-content">
                     <img src="https://images.sk-static.com/images/media/profile_images/venues/5342/col6" alt="VENUE_NAME" class="card-image venue-image">
                     <h1 class="card-title">Venue Name</h1>
+                    <br>
                     <p>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <br>
                     <p>Full address: Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -29,8 +30,31 @@
                 </div>
             </div>
         </section>
-        <section>
-            
+        <div class="container center">
+            <ul class="pagination" id="event-pagination">
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                <li class="active"><a href="#!">1</a></li>
+                <li class="waves-effect"><a href="#!">2</a></li>
+                <li class="waves-effect"><a href="#!">3</a></li>
+                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+        </div>
+        <section class="row">
+            <ul id="event-list" class="collection col s10 m6 offset-s1 offset-m3">
+                <!-- Events go here -->
+                <li class="collection-item avatar">
+                    <img src="https://images.sk-static.com/images/media/profile_images/artists/3356916/huge_avatar" alt="EVENT_NAME" class="circle">
+                    <span class="title">EVENT_NAME</span>
+                    <p>First Line</p>
+                    <p>Second Line</p>
+                </li>
+                <li class="collection-item avatar">
+                    <img src="https://images.sk-static.com/images/media/profile_images/artists/3356916/huge_avatar" alt="EVENT_NAME" class="circle">
+                    <span class="title">EVENT_NAME</span>
+                    <p>First Line</p>
+                    <p>Second Line</p>
+                </li>
+            </ul>
         </section>
     </main>
 

@@ -15,3 +15,8 @@ body {
     float: right;
     width: 40%;
 }
+
+#event-list {
+    padding-left: 0px;
+    padding-right: 0px;
+}
