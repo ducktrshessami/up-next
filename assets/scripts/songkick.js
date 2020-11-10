@@ -94,3 +94,20 @@ function skGetVenueDetails(id) {
         }).then(response => resolve(response.resultsPage.results.venue));
     });
 }
+
+/*
+Get the extended Event object from a event's ID
+
+@param id: a Number containing the event's id
+
+@return: a Promise<object> that resolves in the Event object
+*/
+function skGetEventDetails(id) {
+    return new Promise(async function(resolve, reject) {
+        $.ajax({
+            method: "GET",
+            url: `https://api.songkick.com/api/3.0/events/${id}.json?apikey=${skapi1}`,
+            error: reject
+        }).then(response => resolve(response.resultsPage.results.event));
+    });
+}
