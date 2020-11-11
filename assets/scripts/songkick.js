@@ -49,7 +49,13 @@ function skGetEventList(coords) {
                 url: `${queryURL}&page=${i}`
             });
             maxPages = Math.ceil(currentPage.resultsPage.totalEntries / perPage); // I couldn't think of a way to only do this once and not defeat the purpose
-            results = results.concat(currentPage.resultsPage.results.event.filter(e => e.status == "ok" && e.venue.id));
+            results = results.concat(
+                await Promise.all(
+                    currentPage.resultsPage.results.event
+                        .filter(e => e.status == "ok" && e.venue.id)
+                        .map(e => skGetEventDetails(e.id))
+                )
+            );
         }
         resolve(results);
     });
