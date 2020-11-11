@@ -12,6 +12,7 @@ async function initPage() {
         .then(skGetEventList)
         .then(skGetVenueList)
         .then(displayVenueList)
+        .then(initMap)
         .catch(console.error);
 }
 /*
@@ -43,11 +44,11 @@ function initMap() {
     
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
-        //center: searchZipCode,
-        center: zipCode,
+        //center: coordinate of searched zip code,
+        center: coords,
     });
 
-    // The marker, positioned at Uluru
+    // The marker for venues listed
     const marker = new google.maps.Marker({
         // for loop to grab the lat and lon of the first 25 venues
         //for (var i = 0; i < 25; i++) {
@@ -55,8 +56,8 @@ function initMap() {
             // venue locations can be marked on map
 
         //};
-        //position: uluru,
-        position: searchZipCode,
+        //position: of marker
+        position: coords,
         map: map,
     });
 }
