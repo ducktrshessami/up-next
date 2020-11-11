@@ -10,9 +10,8 @@ $(document.body).ready(function() {
         event.preventDefault();
 
         lastSearch = zipSearch.val();
-        zpGetCoords(lastSearch).then(() => {
-            localStorage.setItem("lastSearch", lastSearch);
-            window.location = "./venue-list.html";
-        }).catch(console.error);
+        if (lastSearch) {
+            window.location.replace("./venue-list.html?q=" + lastSearch);
+        }
     });
 })

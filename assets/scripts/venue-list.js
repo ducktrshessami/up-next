@@ -1,13 +1,13 @@
-var coords;
-
-const zipCode = localStorage.getItem("lastSearch");
+var coords, zipCode;
 
 initPage();
 
 /*
+Initialize the page
 */
 async function initPage() {
-    zpGetCoords(zipCode)
+    handleArgs()
+        .then(zpGetCoords)
         .then(c => coords = c)
         .then(skGetEventList)
         .then(skGetVenueList)
@@ -31,6 +31,20 @@ flows as follows:
 > Map markers for every venue in list gets created
 > Map gets displayed
 */
+
+/*
+Handle query
+*/
+async function handleArgs() {
+    let query = (new URLSearchParams(window.location.search)).get("q");
+    if (query) {
+        zipCode = query;
+    }
+    else {
+        zipCode = localStorage.getItem("lastSearch");
+    }
+    return zipCode;
+}
 
 /*
 */
