@@ -10,7 +10,7 @@ Zippopotam.us API call to search for lat/lon coordinates
 
 @return: a Promise<object> that resolves in {
     lat: float
-    lon: float
+    lng: float
 }
 */
 function zpGetCoords(zip) {
@@ -22,7 +22,7 @@ function zpGetCoords(zip) {
         }).then((response) => {
             resolve({
                 lat: parseFloat(response.places[0].latitude),
-                lon: parseFloat(response.places[0].longitude)
+                lng: parseFloat(response.places[0].longitude)
             });
         });
     });
@@ -42,7 +42,7 @@ function skGetEventList(coords) {
     return new Promise(async function(resolve, reject) {
         let maxPages = 1;
         let results = [];
-        let queryURL = `https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lon}&per_page=${perPage}`;
+        let queryURL = `https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${perPage}`;
         for (let i = 1; i <= maxPages; i++) {
             let currentPage = await $.ajax({
                 method: "GET",
