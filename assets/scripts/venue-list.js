@@ -64,6 +64,6 @@ function initMap(venueList) {
     });
 }
 
-
+        
 
 

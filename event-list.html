@@ -16,9 +16,16 @@
     <nav>
         <div class="nav-wrapper">
           <div id="nav-bar">
-            <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="index.html"><i class="material-icons">search</i></a></li>
+          <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="right hide-on-small-only">
+            <li>
+                <div class="input-field">
+                  <input id="search" type="search" required>
+                  <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                  <i class="material-icons right">close</i>
+                </div>
+            </li>
             <li><a href="venue-list.html">Venues</a></li>
             <li><a href="event-list.html">Events</a></li>
           </ul>
