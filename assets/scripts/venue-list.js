@@ -43,10 +43,14 @@ function displayVenueList(venueList) {
 
 // Initialize and add the map
 function initMap(venueList) {    
+    // loop all lats and lngs for venues
     for (var i = 0; i < venueList.length; i++) {
+        // var saving lats
         var latitude = venueList[i].lat;
-        var longitude =venueList[i].lng;
-        var venueMarkers = { lat: latitude, lng: longitude};
+        // var saving lngs
+        var longitude = venueList[i].lng;
+        // var placing lats and lngs in an object
+        //var venueMarkers = { lat: latitude, lng: longitude};
     }
     
     
@@ -61,7 +65,8 @@ function initMap(venueList) {
     // The marker for venues listed
     const marker = new google.maps.Marker({
         //position: of marker
-        position: venueMarkers,
+        //position: of venueMarkers,
+        position: { lat: latitude, lng: longitude},
         map: map,
     });
 }
