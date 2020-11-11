@@ -40,13 +40,15 @@ function displayVenueList(venueList) {
 }
 
 // Initialize and add the map
-function initMap() {    
+function initMap(venueList) {    
     
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         //center: coordinate of searched zip code,
         center: coords,
     });
+
+    
 
     // The marker for venues listed
     const marker = new google.maps.Marker({
