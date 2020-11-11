@@ -51,10 +51,18 @@ async function handleArgs() {
 function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
+
+    return venueList;
 }
 
 // Initialize and add the map
-function initMap() {    
+function initMap(venueList) {    
+    for (var i = 0; i < venueList.length; i++) {
+        venueList[i].lat;
+        venueList[i].lng;
+        
+    }
+    
     
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
@@ -62,11 +70,13 @@ function initMap() {
         center: coords,
     });
 
+    
+
     // The marker for venues listed
     const marker = new google.maps.Marker({
-        // for loop to grab the lat and lon of the first 25 venues
+        // for loop to grab the lat and lng of the first 25 venues
         //for (var i = 0; i < 25; i++) {
-            // Need to create an array of objects with lat and lon so that
+            // Need to create an array of objects with lat and lng so that
             // venue locations can be marked on map
 
         //};
@@ -76,6 +86,6 @@ function initMap() {
     });
 }
 
-
+        
 
 

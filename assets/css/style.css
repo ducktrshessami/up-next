@@ -2,7 +2,8 @@ body {
     background-image: url("../images/1701895714-huge.jpg");
 }
 .card {
-  opacity: 60%;
+  opacity: 75%;
+  border: 1px solid white;
 
 }
 
@@ -27,6 +28,7 @@ body {
 #nav-bar {
     padding-left: 10px;
     padding-right: 10px;
+
     background-color: black;
     padding-top: 10px;
 }
