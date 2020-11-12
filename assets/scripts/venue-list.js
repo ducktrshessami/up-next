@@ -41,6 +41,7 @@ async function handleArgs() {
     let query = (new URLSearchParams(window.location.search)).get("q");
     if (query) {
         zipCode = query;
+        localStorage.setItem("lastSearch", query);
     }
     else {
         zipCode = localStorage.getItem("lastSearch");
