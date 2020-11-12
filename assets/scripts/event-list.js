@@ -1,3 +1,5 @@
+var venueID, pageNum;
+
 const venDetailsEl = $("#details");
 
 initPage();
@@ -6,9 +8,9 @@ initPage();
 Initialize the page
 */
 function initPage() {
-    let venueID = handleArgs();
+    handleArgs();
     if (venueID) {
-        skGetVenueDetails(venueID)
+        skGetVenueDetails(venueID) // Do simultaneously to reduce load
             .then(displayVenueDetails)
             .catch(console.error);
         skGetEventListFromVenue(venueID)
@@ -24,16 +26,15 @@ function initPage() {
 Handle query
 */
 function handleArgs() {
-    let venueID;
-    let vid = (new URLSearchParams(window.location.search)).get("vid");
-    if (vid) {
-        venueID = vid;
+    let params = new URLSearchParams(window.location.search);
+    pageNum = params.get("page") || 1;
+    venueID = params.get("vid");
+    if (venueID) {
         localStorage.setItem("lastVenue", vid);
     }
     else {
         venueID = localStorage.getItem("lastVenue");
     }
-    return venueID;
 }
 
 /*
@@ -51,5 +52,10 @@ async function displayEventList(eventList) {
 /*
 */
 function displayEmptiness() {
-
+    venDetailsEl.empty();
+    venDetailsEl.append(`
+        <div class="card-content">
+            <h1 class="center"><a href="./index.html">Please search for a venue first</a></h1>
+        </div>
+    `);
 }
