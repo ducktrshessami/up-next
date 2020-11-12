@@ -1,5 +1,8 @@
-var coords, zipCode;
+var coords, zipCode
 
+var pageNum = 1;
+
+const perPage = 10;
 const venueListEl =$("#venue-list");
 
 initPage();
@@ -40,10 +43,10 @@ flows as follows:
 Handle query
 */
 async function handleArgs() {
-    let query = (new URLSearchParams(window.location.search)).get("q");
-    if (query) {
-        zipCode = query;
-        localStorage.setItem("lastSearch", query);
+    let params = new URLSearchParams(window.location.search);
+    zipCode = params.get("q");
+    if (zipCode) {
+        localStorage.setItem("lastSearch", zipCode);
     }
     else {
         zipCode = localStorage.getItem("lastSearch");
@@ -56,7 +59,8 @@ async function handleArgs() {
 async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
-    for (var i = 0; i < venueList.length && i<10; i++) {
+    venueListEl.empty();
+    for (var i = (pageNum - 1) * perPage; i < venueList.length && i < 10; i++) {
         venueListEl.append(`<div class="col s12 m6 xl4">
         <div class="card black white-text">
           <div class="card-content">
