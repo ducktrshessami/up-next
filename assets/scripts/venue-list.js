@@ -1,5 +1,7 @@
 var coords, zipCode;
 
+const venueListEl =$("#venue-list");
+
 initPage();
 
 /*
@@ -54,6 +56,18 @@ async function handleArgs() {
 async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
+    for (var i = 0; i < venueList.length && i<10; i++) {
+        venueListEl.append(`<div class="col s12 m6 xl4">
+        <div class="card black white-text">
+          <div class="card-content">
+             <img src="https://images.sk-static.com/images/media/profile_images/venues/${venueList[i].id}/col1" alt="${venueList[i].displayName}" class="responsive-img circle right">
+            <span class="card-title">${venueList[i].displayName}</span>
+            <p>${venueList[i].street}</p>
+            <p>Number of Events: ${venueList[i].eventCount}</p>
+          </div>
+        </div>
+      </div>`);  
+    }
 }
 
 // Initialize and add the map
