@@ -55,7 +55,7 @@ function displayEmptiness() {
     venDetailsEl.empty();
     venDetailsEl.append(`
         <div class="card-content">
-            <h1 class="center"><a href="./index.html">Please search for a venue first</a></h1>
+            <h1 class="center"><a href="./">Please search for a venue first</a></h1>
         </div>
     `);
 }
