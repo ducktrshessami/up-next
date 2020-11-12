@@ -77,10 +77,10 @@ function skGetVenueList(eventList) {
             vi = venues.length;
             venues.push(eventList[i].venue);
         }
-        if (!venues[vi].events) { // If new venue in list
-            venues[vi].events = [];
+        if (!venues[vi].eventCount) { // If new venue in list
+            venues[vi].eventCount = 0;
         }
-        venues[vi].events.push(eventList[i]);
+        venues[vi].eventCount++;
     }
     return venues;
 }
