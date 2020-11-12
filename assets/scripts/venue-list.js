@@ -1,13 +1,13 @@
-var coords, zipCode;
+var coords;
+
+const zipCode = localStorage.getItem("lastSearch");
 
 initPage();
 
 /*
-Initialize the page
 */
 async function initPage() {
-    handleArgs()
-        .then(zpGetCoords)
+    zpGetCoords(zipCode)
         .then(c => coords = c)
         .then(skGetEventList)
         .then(skGetVenueList)
@@ -35,20 +35,6 @@ flows as follows:
 */
 
 /*
-Handle query
-*/
-async function handleArgs() {
-    let query = (new URLSearchParams(window.location.search)).get("q");
-    if (query) {
-        zipCode = query;
-    }
-    else {
-        zipCode = localStorage.getItem("lastSearch");
-    }
-    return zipCode;
-}
-
-/*
 */
 async function displayVenueList(venueList) {
     //do stuff
@@ -57,10 +43,14 @@ async function displayVenueList(venueList) {
 
 // Initialize and add the map
 async function initMap(venueList) {    
+    // loop all lats and lngs for venues
     for (var i = 0; i < venueList.length; i++) {
-        venueList[i].lat;
-        venueList[i].lng;
-        
+        // var saving lats
+        var latitude = venueList[i].lat;
+        // var saving lngs
+        var longitude = venueList[i].lng;
+        // var placing lats and lngs in an object
+        //var venueMarkers = { lat: latitude, lng: longitude};
     }
     
     
@@ -74,14 +64,9 @@ async function initMap(venueList) {
 
     // The marker for venues listed
     const marker = new google.maps.Marker({
-        // for loop to grab the lat and lng of the first 25 venues
-        //for (var i = 0; i < 25; i++) {
-            // Need to create an array of objects with lat and lng so that
-            // venue locations can be marked on map
-
-        //};
         //position: of marker
-        position: coords,
+        //position: of venueMarkers,
+        position: { lat: latitude, lng: longitude},
         map: map,
     });
 }
