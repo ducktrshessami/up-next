@@ -11,8 +11,10 @@ async function initPage() {
         .then(c => coords = c)
         .then(skGetEventList)
         .then(skGetVenueList)
-        .then(displayVenueList)
-        .then(initMap)
+        .then(venueList => {
+            displayVenueList(venueList);
+            initMap(venueList);
+        })
         .catch(console.error);
 }
 /*
@@ -48,15 +50,13 @@ async function handleArgs() {
 
 /*
 */
-function displayVenueList(venueList) {
+async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
-
-    return venueList;
 }
 
 // Initialize and add the map
-function initMap(venueList) {    
+async function initMap(venueList) {    
     for (var i = 0; i < venueList.length; i++) {
         venueList[i].lat;
         venueList[i].lng;
