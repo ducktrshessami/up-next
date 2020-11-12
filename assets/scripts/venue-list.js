@@ -60,7 +60,7 @@ async function displayVenueList(venueList) {
         venueListEl.append(`<div class="col s12 m6 xl4">
         <div class="card black white-text">
           <div class="card-content">
-             <img src="https://images.sk-static.com/images/media/profile_images/venues/VENUE_ID/col1" alt="VENUE_IMAGE" class="responsive-img circle right">
+             <img src="https://images.sk-static.com/images/media/profile_images/venues/${venueList[i].id}/col1" alt="${venueList[i].displayName}" class="responsive-img circle right">
             <span class="card-title">${venueList[i].displayName}</span>
             <p>${venueList[i].street}</p>
             <p>Number of Events: ${venueList[i].eventCount}</p>
