@@ -11,7 +11,7 @@ $(document.body).ready(function() {
 
         lastSearch = zipSearch.val();
         if (lastSearch) {
-            window.location.replace("./venue-list?q=" + lastSearch);
+            window.location.replace("./venue-list.html?q=" + lastSearch);
         }
     });
 })
