@@ -74,7 +74,7 @@ async function displayVenueList(venueList) {
 async function initMap(venueList) {   
     
     const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
+        zoom: 10,
         //center: coordinate of searched zip code,
         center: coords,
     });
@@ -82,14 +82,27 @@ async function initMap(venueList) {
 
     // loop all lats and lngs for venues
     for (var i = 0; i < venueList.length; i++) {
-        // var saving lats
+        // saving lats
         venueList[i].lat;
-        // var saving lngs
+        // saving lngs
         venueList[i].lng;
-        
-        new google.maps.Marker({
+        // saving venue name
+        venueList[i].displayName;
+
+        // set markers on coordinates
+        const venueMarker = new google.maps.Marker({
             position: { lat: venueList[i].lat, lng: venueList[i].lng},
             map: map,
+        });
+
+        //setting up infoWindo
+        const venueName = new google.maps.InfoWindow({
+            content: venueList[i].display,
+        });
+        
+        // event listner for marker
+        venueMarker.addListener("click", () => {
+            venueName.open(map, venueMarker);
         });
         
     }
