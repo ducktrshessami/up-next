@@ -61,11 +61,11 @@ async function initMap(venueList) {
     // loop all lats and lngs for venues
     for (var i = 0; i < venueList.length; i++) {
         // var saving lats
-        var latitude = venueList[i].lat;
+        venueList[i].lat;
         // var saving lngs
-        var longitude = venueList[i].lng;
+        venueList[i].lng;
         // var placing lats and lngs in an object
-        //var venueMarkers = { lat: latitude, lng: longitude};
+        var venueMarkers = { venueList[i].lat , venueList[i].lng}
     }
     
     
@@ -80,8 +80,7 @@ async function initMap(venueList) {
     // The marker for venues listed
     const marker = new google.maps.Marker({
         //position: of marker
-        //position: of venueMarkers,
-        position: { lat: latitude, lng: longitude},
+        position: of venueMarkers,
         map: map,
     });
 }
