@@ -1,5 +1,7 @@
 var coords, zipCode;
 
+const venueListEl =$("#venue-list");
+
 initPage();
 
 /*
@@ -54,12 +56,24 @@ async function handleArgs() {
 async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
+    for (var i = 0; i < venueList.length; i++) {
+        venueListEl.append(`<div class="col s12 m6 xl4">
+        <div class="card black white-text">
+          <div class="card-content">
+             <img src="https://images.sk-static.com/images/media/profile_images/venues/VENUE_ID/col1" alt="VENUE_IMAGE" class="responsive-img circle right">
+            <span class="card-title">${venueList[i].displayName}</span>
+            <p>${venueList[i].street}</p>
+            <p>Number of Events: ${venueList[i].eventCount}</p>
+          </div>
+        </div>
+      </div>`);  
+    }
 }
 
 // Initialize and add the map
 async function initMap(venueList) {    
     // loop all lats and lngs for venues
-    for (var i = 0; i < venueList.length; i++) {
+    /*for (var i = 0; i < venueList.length; i++) {
         // var saving lats
         venueList[i].lat;
         // var saving lngs
@@ -82,7 +96,7 @@ async function initMap(venueList) {
         //position: of marker
         position: of venueMarkers,
         map: map,
-    });
+    }); */
 }
 
         
