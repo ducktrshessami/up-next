@@ -1,21 +1,30 @@
+const venDetailsEl = $("#details");
+
 initPage();
 
 /*
 Initialize the page
 */
 function initPage() {
-    handleArgs()
-        .then(venueID => {
-            skGetVenueDetails(venueID).then(displayVenueDetails);
-            skGetEventListFromVenue(venueID).then(displayEventList);
-        })
-        .catch(console.error);
+    let venueID = handleArgs();
+    if (venueID) {
+        skGetVenueDetails(venueID)
+            .then(displayVenueDetails)
+            .catch(console.error);
+        skGetEventListFromVenue(venueID)
+            .then(displayEventList)
+            .catch(console.error);
+    }
+    else {
+        displayEmptiness();
+    }
 }
 
 /*
 Handle query
 */
-async function handleArgs() {
+function handleArgs() {
+    let venueID;
     let vid = (new URLSearchParams(window.location.search)).get("vid");
     if (vid) {
         venueID = vid;
@@ -37,4 +46,10 @@ async function displayVenueDetails(venueDetails) {
 */
 async function displayEventList(eventList) {
     console.log(eventList);
+}
+
+/*
+*/
+function displayEmptiness() {
+
 }
