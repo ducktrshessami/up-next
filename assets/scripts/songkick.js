@@ -72,15 +72,17 @@ Parse an event list into a venue list (with events in each venue)
 function skGetVenueList(eventList) {
     let venues = [];
     for (let i = 0; i < eventList.length; i++) {
-        let vi = venues.findIndex(v => v.id == eventList[i].venue.id);
-        if (vi === -1) { // If venue not in list
-            vi = venues.length;
-            venues.push(eventList[i].venue);
+        if (eventList[i].venue.street) {
+            let vi = venues.findIndex(v => v.id == eventList[i].venue.id);
+            if (vi === -1) { // If venue not in list
+                vi = venues.length;
+                venues.push(eventList[i].venue);
+            }
+            if (!venues[vi].eventCount) { // If new venue in list
+                venues[vi].eventCount = 0;
+            }
+            venues[vi].eventCount++;
         }
-        if (!venues[vi].eventCount) { // If new venue in list
-            venues[vi].eventCount = 0;
-        }
-        venues[vi].eventCount++;
     }
     return venues;
 }
