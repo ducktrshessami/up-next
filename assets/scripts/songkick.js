@@ -30,19 +30,20 @@ function zpGetCoords(zip) {
 
 /*
 Songkick API call to search for events from a location
-As of right now the query is a little redundant since ZIP code is required, but just roll with it
 Only events that have a venue and are of status "ok" are returned
-
-@param zip: a string containing the ZIP code
-@param query: a string containing the city name to search for
-
-@return: a Promise<Array<object>> that resolves in a list of events
 */
-function skGetEventList(coords) {
+function skGetEventListFromCoords(coords) {
+    return skGetEventList(`https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${perPage}`);
+}
+
+function skGetEventListFromVenue(venueID) {
+    return skGetEventList(`https://api.songkick.com/api/3.0/venues/${venueID}/calendar.json?apikey=${skapi1}&per_page=${perPage}`);
+}
+
+function skGetEventList(queryURL) {
     return new Promise(async function(resolve, reject) {
         let maxPages = 1;
         let results = [];
-        let queryURL = `https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${perPage}`;
         for (let i = 1; i <= maxPages; i++) {
             let currentPage = await $.ajax({
                 method: "GET",
@@ -92,7 +93,7 @@ Get the extended Venue object from a venue's ID
 @return: a Promise<object> that resolves in the Venue object
 */
 function skGetVenueDetails(id) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
         $.ajax({
             method: "GET",
             url: `https://api.songkick.com/api/3.0/venues/${id}.json?apikey=${skapi1}`,
@@ -109,7 +110,7 @@ Get the extended Event object from a event's ID
 @return: a Promise<object> that resolves in the Event object
 */
 function skGetEventDetails(id) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
         $.ajax({
             method: "GET",
             url: `https://api.songkick.com/api/3.0/events/${id}.json?apikey=${skapi1}`,

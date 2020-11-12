@@ -9,7 +9,7 @@ async function initPage() {
     handleArgs()
         .then(zpGetCoords)
         .then(c => coords = c)
-        .then(skGetEventList)
+        .then(skGetEventListFromCoords)
         .then(skGetVenueList)
         .then(venueList => { // Do simultaneously to reduce load
             displayVenueList(venueList);
