@@ -30,7 +30,7 @@ function handleArgs() {
     pageNum = params.get("page") || 1;
     venueID = params.get("vid");
     if (venueID) {
-        localStorage.setItem("lastVenue", vid);
+        localStorage.setItem("lastVenue", venueID);
     }
     else {
         venueID = localStorage.getItem("lastVenue");

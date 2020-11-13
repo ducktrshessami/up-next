@@ -21,6 +21,8 @@ async function initPage() {
             initMap(venueList);
         })
         .catch(console.error);
+
+    venueListEl.click(gotoVenue);
 }
 /*
 If my intuition is correct, we can remove &callback=initMap from the Google Maps
@@ -76,6 +78,14 @@ async function displayVenueList(venueList) {
     }
 }
 
+function gotoVenue(event) {
+    event.stopPropagation();
+    let button = checkAncestry("[role='button']", event.target);
+    if (button) {
+        window.location.href = "./event-list.html?vid=" + button.getAttribute("data-value");
+    }
+}
+
 // Initialize and add the map
 async function initMap(venueList) {   
     
@@ -114,6 +124,13 @@ async function initMap(venueList) {
     }
 }
 
-        
-
-
+function checkAncestry(selector, elem) {
+    let selected = $(selector);
+    if (selected.find(elem).length) {
+        for (let i = 0; i < selected.length; i++) {
+            if ($(selected[i]).find(elem).length) {
+                return selected[i];
+            }
+        }
+    }
+}
