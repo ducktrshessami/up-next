@@ -55,7 +55,7 @@ async function displayVenueDetails(venueDetails) {
     venNameEl.text(venueDetails.displayName);
     venCapEl.text(venueDetails.capacity);
     venDescEl.text(venueDetails.description);
-    venAddrEl.text(venueDetails.street);
+    venAddrEl.text(`${venueDetails.street} ${venueDetails.metroArea.displayName}, ${venueDetails.metroArea.state.displayName} ${venueDetails.zip}`);
     venPhoneEl.text(venueDetails.phone);
     venWebEl.text(venueDetails.website);
     venWebEl.attr("href", venueDetails.website);
