@@ -6,9 +6,8 @@ body {
 }
 
 .card {
-  opacity: 75%;
-  border: 1px solid white;
-
+    opacity: 75%;
+    border: 1px solid white;
 }
 
 #map {
@@ -30,6 +29,7 @@ body {
     padding-left: 0px;
     padding-right: 0px;
 }
+
 #nav-bar {
     padding-left: 10px;
     padding-right: 10px;
@@ -37,6 +37,7 @@ body {
     background-color: black;
     padding-top: 10px;
 }
+
 .input-field {
     opacity: 60%;
 }

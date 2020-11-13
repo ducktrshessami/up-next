@@ -13,7 +13,7 @@ initPage();
 /*
 Initialize the page
 */
-async function initPage() {
+function initPage() {
     handleArgs();
     if (zipCode) {
         zpGetCoords(zipCode)
@@ -27,18 +27,17 @@ async function initPage() {
             })
             .catch(displayError);
 
-        venueListEl.click(gotoVenue);
+        venueListEl.click(gotoVenue); // Handle click events
         venuePaginationEl.click(handlePagination);
     }
     else {
         displayEmptiness();
     }
-
-    $("form").submit(newSearch);
+    $("form").submit(newSearch); // Handle navbar search
 }
 
 /*
-Handle query
+Handle URL params and stored recent search
 */
 function handleArgs() {
     let params = new URLSearchParams(window.location.search);
@@ -52,6 +51,8 @@ function handleArgs() {
 }
 
 /*
+Display a cached venue list on the page
+Asynchronous to reduce load times
 */
 async function displayVenueList() {
     venueListEl.empty();
@@ -70,9 +71,14 @@ async function displayVenueList() {
             </li>
         `);
     }
-    displayPagination();
+    displayPagination(); // Do after getting data and total page count
 }
 
+/*
+Handle clicking on pagination
+
+@param event: a mouse click event
+*/
 function handlePagination(event) {
     event.stopPropagation();
     let target = $("li").has(event.target);
@@ -85,6 +91,9 @@ function handlePagination(event) {
     }
 }
 
+/*
+Display page numbers and arrows with proper styling
+*/
 function displayPagination() {
     venuePaginationEl.empty();
     venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
@@ -94,11 +103,22 @@ function displayPagination() {
     venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
 }
 
+/*
+Change page of venue list display
+Page number automatically truncated to fit page list
+
+@param n: a number containing the page number to change to
+*/
 function changePage(n) {
     currentPage = Math.min(Math.max(1, n), totalPages);
     displayVenueList();
 }
 
+/*
+Handle navbar searches
+
+@param event: a submit even for the form that wraps the search bar in the navbar
+*/
 function newSearch(event) {
     event.preventDefault();
     if (searchBarEl.val()) {
@@ -106,6 +126,11 @@ function newSearch(event) {
     }
 }
 
+/*
+Handle clicking on a venue card and redirect to the event list
+
+@param event: a click event
+*/
 function gotoVenue(event) {
     event.stopPropagation();
     let button = $("[role='button']").has(event.target);
@@ -149,6 +174,7 @@ async function initMap() {
 }
 
 /*
+Display message pertaining to the lack of search query
 */
 function displayEmptiness() {
     mainEl.empty();
@@ -163,6 +189,9 @@ function displayEmptiness() {
     `);
 }
 
+/*
+Display a message explaining possible errors
+*/
 function displayError() {
     mainEl.empty();
     mainEl.append(`

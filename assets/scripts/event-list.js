@@ -32,17 +32,17 @@ function initPage() {
             .then(displayEventList)
             .catch(displayError);
         
-        eventListEl.click(gotoEvent);
+        eventListEl.click(gotoEvent); // Handle click events
         paginEl.click(handlePagination);
     }
     else {
         displayEmptiness();
     }
-    $("form").submit(newSearch);
+    $("form").submit(newSearch); // Handle navbar search
 }
 
 /*
-Handle query
+Handle URL params and stored recent venue selection
 */
 function handleArgs() {
     let params = new URLSearchParams(window.location.search);
@@ -57,6 +57,8 @@ function handleArgs() {
 }
 
 /*
+Display the chosen venue's details
+Asynchronous to reduce load times
 */
 async function displayVenueDetails(venueDetails) {
     venImgEl.attr("src", `https://images.sk-static.com/images/media/profile_images/venues/${venueID}/col6`);
@@ -71,6 +73,8 @@ async function displayVenueDetails(venueDetails) {
 }
 
 /*
+Display a cached event list on the page
+Asynchronous to reduce load times
 */
 async function displayEventList() {
     eventListEl.empty();
@@ -88,7 +92,7 @@ async function displayEventList() {
                 </div>
             </li>
         `);
-        let content = $(".artist-list", currentEventEl);
+        let content = $(".artist-list", currentEventEl); // List performing artists
         for (let j = 0; j < eventList[i].performance.length; j++) {
             content.append(`
                 <li>
@@ -98,9 +102,14 @@ async function displayEventList() {
         }
         eventListEl.append(currentEventEl);
     }
-    displayPagination();
+    displayPagination(); // Do after getting data and total page count
 }
 
+/*
+Handle clicking on pagination
+
+@param event: a mouse click event
+*/
 function handlePagination(event) {
     event.stopPropagation();
     let target = $("li").has(event.target);
@@ -113,6 +122,9 @@ function handlePagination(event) {
     }
 }
 
+/*
+Display page numbers and arrows with proper styling
+*/
 function displayPagination() {
     paginEl.empty();
     paginEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
@@ -122,11 +134,22 @@ function displayPagination() {
     paginEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
 }
 
+/*
+Change page of event list display
+Page number automatically truncated to fit page list
+
+@param n: a number containing the page number to change to
+*/
 function changePage(n) {
     currentPage = Math.min(Math.max(1, n), totalPages);
     displayEventList();
 }
 
+/*
+Handle navbar searches
+
+@param event: a submit even for the form that wraps the search bar in the navbar
+*/
 function newSearch(event) {
     event.preventDefault();
     if (searchBarEl.val()) {
@@ -134,6 +157,11 @@ function newSearch(event) {
     }
 }
 
+/*
+Handle clicking on a venue card and redirect to the event page on Songkick
+
+@param event: a click event
+*/
 function gotoEvent(event) {
     event.stopPropagation();
     let button = $("[role='button']").has(event.target);
@@ -143,6 +171,7 @@ function gotoEvent(event) {
 }
 
 /*
+Display message pertaining to the lack of search query
 */
 function displayEmptiness() {
     venDetailsEl.empty();
@@ -153,6 +182,9 @@ function displayEmptiness() {
     `);
 }
 
+/*
+Display a message explaining possible errors
+*/
 function displayError() {
     venDetailsEl.empty();
     venDetailsEl.append(`
