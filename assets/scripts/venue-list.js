@@ -105,7 +105,7 @@ function newSearch(event) {
 function gotoVenue(event) {
     event.stopPropagation();
     let button = $("[role='button']").has(event.target);
-    if (button) {
+    if (button.length) {
         window.location.href = "./event-list.html?vid=" + button.attr("data-value");
     }
 }
