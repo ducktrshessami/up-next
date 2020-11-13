@@ -111,7 +111,7 @@ async function initMap(venueList) {
         const venueMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
             position: { lat: venueList[i].lat, lng: venueList[i].lng},
-            label: venueList[i].displayName,
+            label: { text: venueList[i].displayName, color: "white"},
             map: map,
         });
 
@@ -120,7 +120,7 @@ async function initMap(venueList) {
             content: venueList[i].displayName,
         });
         
-        // event listner for marker
+        // event listner for marker 
         venueMarker.addListener("click", () => {
             venueName.open(map, venueMarker);
         });
