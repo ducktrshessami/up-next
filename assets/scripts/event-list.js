@@ -1,4 +1,4 @@
-var venueID, pageNum;
+var venueID, currentPage;
 
 const venDetailsEl = $("#details");
 const venImgEl = $("#ven-image");
@@ -36,7 +36,7 @@ Handle query
 */
 function handleArgs() {
     let params = new URLSearchParams(window.location.search);
-    pageNum = params.get("page") || 1;
+    currentPage = params.get("page") || 1;
     venueID = params.get("vid");
     if (venueID) {
         localStorage.setItem("lastVenue", venueID);

@@ -1,10 +1,13 @@
 var coords, zipCode
 
-var pageNum = 1;
+var currentPage = 1;
+
+var totalPages;
 
 const perPage = 10;
 const searchBarEl = $("#search");
 const venueListEl =$("#venue-list");
+const venuePaginationEl =$("#venue-pagination");
 
 initPage();
 
@@ -64,7 +67,8 @@ async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
     venueListEl.empty();
-    for (var i = (pageNum - 1) * perPage; i < venueList.length && i < pageNum * perPage; i++) {
+    totalPages = Math.ceil(venueList.length / 10); 
+    for (var i = (currentPage - 1) * perPage; i < venueList.length && i < currentPage * perPage; i++) {
         venueListEl.append(`
             <li class="col s12 m6 xl4">
                 <div class="card black white-text" role="button" data-value="${venueList[i].id}">
@@ -76,8 +80,28 @@ async function displayVenueList(venueList) {
                 </div>
                 </div>
             </li>
-        `);  
+        `);
     }
+    displayPagination();
+}
+
+function displayPagination() {
+    venuePaginationEl.empty();
+    venuePaginationEl.append(`<li id="left-arrow" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    for (var i = 1; i <= totalPages; i++) {
+        venuePaginationEl.append(`<li class="active"><a href="#!"></a>${i}</li>`);
+    }
+    venuePaginationEl.append(`<li id="right-arrow" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+}
+
+function nextPage() {
+    currentPage += 1;
+    displayVenueList();
+}
+
+function previousPage() {
+    currentPage -= 1;
+    displayVenueList();
 }
 
 function newSearch(event) {
