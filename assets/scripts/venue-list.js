@@ -3,6 +3,7 @@ var coords, zipCode
 var pageNum = 1;
 
 const perPage = 10;
+const searchBarEl = $("#search");
 const venueListEl =$("#venue-list");
 
 initPage();
@@ -22,6 +23,7 @@ async function initPage() {
         })
         .catch(console.error);
 
+    $("form").submit(newSearch);
     venueListEl.click(gotoVenue);
 }
 /*
@@ -75,6 +77,13 @@ async function displayVenueList(venueList) {
                 </div>
             </li>
         `);  
+    }
+}
+
+function newSearch(event) {
+    event.preventDefault();
+    if (searchBarEl.val()) {
+        window.location.href = "./venue-list.html?q=" + searchBarEl.val();
     }
 }
 
