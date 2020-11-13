@@ -60,7 +60,7 @@ async function displayVenueList(venueList) {
     //do stuff
     console.log(venueList);
     venueListEl.empty();
-    for (var i = (pageNum - 1) * perPage; i < venueList.length && i < 10; i++) {
+    for (var i = (pageNum - 1) * perPage; i < venueList.length && i < pageNum * perPage; i++) {
         venueListEl.append(`<div class="col s12 m6 xl4">
         <div class="card black white-text">
           <div class="card-content">
