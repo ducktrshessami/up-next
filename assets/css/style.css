@@ -1,6 +1,7 @@
 body {
     background-image: url("../images/1701895714-huge.jpg");
 }
+
 .card {
   opacity: 75%;
   border: 1px solid white;
@@ -35,4 +36,8 @@ body {
 }
 .input-field {
     opacity: 60%;
+}
+
+[role="button"] {
+    cursor: pointer;
 }
