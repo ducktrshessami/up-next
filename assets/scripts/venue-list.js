@@ -63,7 +63,7 @@ async function displayVenueList(venueList) {
     for (var i = (pageNum - 1) * perPage; i < venueList.length && i < pageNum * perPage; i++) {
         venueListEl.append(`
             <li class="col s12 m6 xl4">
-                <div class="card black white-text" role="button">
+                <div class="card black white-text" role="button" data-value="${venueList[i].id}">
                 <div class="card-content">
                     <img src="https://images.sk-static.com/images/media/profile_images/venues/${venueList[i].id}/col1" alt="${venueList[i].displayName}" class="responsive-img circle right">
                     <span class="card-title">${venueList[i].displayName}</span>
