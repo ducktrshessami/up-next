@@ -107,22 +107,16 @@ async function initMap(venueList) {
 
     // loop all lats and lngs for venues
     for (var i = 0; i < venueList.length; i++) {
-        // saving lats
-        venueList[i].lat;
-        // saving lngs
-        venueList[i].lng;
-        // saving venue name
-        venueList[i].displayName;
-
         // set markers on coordinates
         const venueMarker = new google.maps.Marker({
+            animation: google.maps.Animation.DROP,
             position: { lat: venueList[i].lat, lng: venueList[i].lng},
             map: map,
         });
 
         //setting up infoWindo
         const venueName = new google.maps.InfoWindow({
-            content: venueList[i].display,
+            content: venueList[i].displayName,
         });
         
         // event listner for marker
