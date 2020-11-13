@@ -111,6 +111,7 @@ async function initMap(venueList) {
         const venueMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
             position: { lat: venueList[i].lat, lng: venueList[i].lng},
+            label: venueList[i].displayName,
             map: map,
         });
 
