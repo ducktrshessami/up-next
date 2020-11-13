@@ -130,7 +130,7 @@ async function initMap(venueList) {
 
 
     // loop all lats and lngs for venues
-    for (var i = 0; i < venueList.length; i++) {
+    for (let i = 0; i < venueList.length; i++) {
         // set markers on coordinates
         const venueMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
@@ -147,7 +147,7 @@ async function initMap(venueList) {
         // event listner for marker 
         venueMarker.addListener("click", () => {
             venueName.open(map, venueMarker);
-            gotoVenue();
+            window.location.href = "./event-list.html?vid=" + venueList[i].id;
         });
         
     }
