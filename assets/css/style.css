@@ -41,3 +41,8 @@ body {
 [role="button"] {
     cursor: pointer;
 }
+
+.artist-image {
+    width: 64px;
+    height: auto;
+}

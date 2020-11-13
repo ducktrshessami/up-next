@@ -53,7 +53,7 @@ function skGetEventList(queryURL) {
             results = results.concat(
                 await Promise.all(
                     currentPage.resultsPage.results.event
-                        .filter(e => e.status == "ok" && e.venue.id)
+                        .filter(e => e.status == "ok" && e.venue.id && e.performance.length)
                         .map(e => skGetEventDetails(e.id))
                 )
             );
