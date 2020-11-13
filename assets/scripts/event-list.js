@@ -154,5 +154,11 @@ function displayEmptiness() {
 }
 
 function displayError() {
-    
+    venDetailsEl.empty();
+    venDetailsEl.append(`
+        <div class="card-content center">
+            <h1 class="center">An error occured.</h1>
+            <h5>This can happen when something other than a ZIP code is entered, or when services used on this site are unavailable.</h5>
+        </div>
+    `);
 }
