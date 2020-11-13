@@ -78,7 +78,7 @@ async function displayEventList() {
     for (let i = (currentPage - 1) * perPage; i < eventList.length && i < currentPage * perPage; i++) {
         let currentEventEl = $(`
             <li class="col s12 m6 xl4">
-                <div class="card black white-text" role="button">
+                <div class="card black white-text" role="button" href="${eventList[i].uri}">
                     <div class="card-content">
                         <img src="https://images.sk-static.com/images/media/profile_images/artists/${eventList[i].performance[0].artist.id}/huge_avatar" alt="${eventList[i].performance[0].artist.displayName}" class="responsive-img circle right artist-image">
                         <span class="card-title">${eventList[i].displayName}</span>
@@ -128,7 +128,11 @@ function changePage(n) {
 }
 
 function gotoEvent(event) {
-
+    event.stopPropagation();
+    let button = $("[role='button']").has(event.target);
+    if (button.length) {
+        window.location.href = button.attr("href");
+    }
 }
 
 /*
