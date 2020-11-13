@@ -50,3 +50,8 @@ body {
     width: 64px;
     height: auto;
 }
+
+.loading {
+    margin-top: 10vh;
+    left: 50%;
+}
