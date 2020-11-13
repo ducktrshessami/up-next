@@ -96,11 +96,11 @@ Display page numbers and arrows with proper styling
 */
 function displayPagination() {
     venuePaginationEl.empty();
-    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
         venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
     }
-    venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+    venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_right</i></a></li>`);
 }
 
 /*

@@ -127,11 +127,11 @@ Display page numbers and arrows with proper styling
 */
 function displayPagination() {
     paginEl.empty();
-    paginEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    paginEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
         paginEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
     }
-    paginEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+    paginEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_right</i></a></li>`);
 }
 
 /*
