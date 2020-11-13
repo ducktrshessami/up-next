@@ -1,7 +1,7 @@
 const skapi1 = "pE1BwpmMDHJdfs9n"; // We have 2 API keys for no reason in particular
 const skapi2 = "4t1Ilns2EQEjn4QW";
 
-const perPage = 50;
+const skPerPage = 50;
 
 /*
 Zippopotam.us API call to search for lat/lon coordinates
@@ -33,11 +33,11 @@ Songkick API call to search for events from a location
 Only events that have a venue and are of status "ok" are returned
 */
 function skGetEventListFromCoords(coords) {
-    return skGetEventList(`https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${perPage}`);
+    return skGetEventList(`https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${skPerPage}`);
 }
 
 function skGetEventListFromVenue(venueID) {
-    return skGetEventList(`https://api.songkick.com/api/3.0/venues/${venueID}/calendar.json?apikey=${skapi1}&per_page=${perPage}`);
+    return skGetEventList(`https://api.songkick.com/api/3.0/venues/${venueID}/calendar.json?apikey=${skapi1}&per_page=${skPerPage}`);
 }
 
 function skGetEventList(queryURL) {
@@ -49,7 +49,7 @@ function skGetEventList(queryURL) {
                 method: "GET",
                 url: `${queryURL}&page=${i}`
             });
-            maxPages = Math.ceil(currentPage.resultsPage.totalEntries / perPage); // I couldn't think of a way to only do this once and not defeat the purpose
+            maxPages = Math.ceil(currentPage.resultsPage.totalEntries / skPerPage); // I couldn't think of a way to only do this once and not defeat the purpose
             results = results.concat(
                 await Promise.all(
                     currentPage.resultsPage.results.event
