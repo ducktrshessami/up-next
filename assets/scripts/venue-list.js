@@ -123,6 +123,7 @@ async function initMap(venueList) {
         // event listner for marker 
         venueMarker.addListener("click", () => {
             venueName.open(map, venueMarker);
+            gotoVenue();
         });
         
     }
