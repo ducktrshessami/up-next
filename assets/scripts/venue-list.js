@@ -23,7 +23,7 @@ async function initPage() {
             displayVenueList();
             initMap();
         })
-        .catch(console.error);
+        .catch(displayError);
 
     $("form").submit(newSearch);
     venueListEl.click(gotoVenue);
@@ -48,8 +48,6 @@ async function handleArgs() {
 /*
 */
 async function displayVenueList() {
-    //do stuff
-    console.log(venueList);
     venueListEl.empty();
     totalPages = Math.ceil(venueList.length / 10); 
     for (var i = (currentPage - 1) * perPage; i < venueList.length && i < currentPage * perPage; i++) {
@@ -142,4 +140,8 @@ async function initMap() {
         });
         
     }
+}
+
+function displayError() {
+    
 }

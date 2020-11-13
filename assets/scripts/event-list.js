@@ -4,6 +4,7 @@ var currentPage = 1;
 
 const perPage = 10;
 
+const searchBarEl = $("#search");
 const venDetailsEl = $("#details");
 const venImgEl = $("#ven-image");
 const venNameEl = $("#ven-name");
@@ -25,11 +26,11 @@ function initPage() {
     if (venueID) {
         skGetVenueDetails(venueID) // Do simultaneously to reduce load
             .then(displayVenueDetails)
-            .catch(console.error);
+            .catch(displayError);
         skGetEventListFromVenue(venueID)
             .then(list => eventList = list)
             .then(displayEventList)
-            .catch(console.error);
+            .catch(displayError);
         
         eventListEl.click(gotoEvent);
         paginEl.click(handlePagination);
@@ -37,6 +38,7 @@ function initPage() {
     else {
         displayEmptiness();
     }
+    $("form").submit(newSearch);
 }
 
 /*
@@ -57,7 +59,6 @@ function handleArgs() {
 /*
 */
 async function displayVenueDetails(venueDetails) {
-    console.log(venueDetails);
     venImgEl.attr("src", `https://images.sk-static.com/images/media/profile_images/venues/${venueID}/col6`);
     venImgEl.attr("alt", venueDetails.displayName);
     venNameEl.text(venueDetails.displayName);
@@ -72,7 +73,6 @@ async function displayVenueDetails(venueDetails) {
 /*
 */
 async function displayEventList() {
-    console.log(eventList);
     eventListEl.empty();
     totalPages = Math.ceil(eventList.length / 10);
     for (let i = (currentPage - 1) * perPage; i < eventList.length && i < currentPage * perPage; i++) {
@@ -127,6 +127,13 @@ function changePage(n) {
     displayEventList();
 }
 
+function newSearch(event) {
+    event.preventDefault();
+    if (searchBarEl.val()) {
+        window.location.href = "./venue-list.html?q=" + searchBarEl.val();
+    }
+}
+
 function gotoEvent(event) {
     event.stopPropagation();
     let button = $("[role='button']").has(event.target);
@@ -144,4 +151,8 @@ function displayEmptiness() {
             <h1 class="center"><a href="./index.html">Please search for a venue first</a></h1>
         </div>
     `);
+}
+
+function displayError() {
+    
 }
