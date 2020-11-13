@@ -110,32 +110,37 @@ function gotoVenue(event) {
 
 // Initialize and add the map
 async function initMap() {   
-    
+    // Creates map in map id
     const map = new google.maps.Map(document.getElementById("map"), {
+        // Map zoom
         zoom: 10,
-        //center: coordinate of searched zip code,
+        // Centers map on coordinate of searched zip code,
         center: coords,
     });
 
 
-    // loop all lats and lngs for venues
+    // For loop will loop lat, lng, displayName, and id
     for (let i = 0; i < venueList.length; i++) {
-        // set markers on coordinates
+        // Set markers on coordinates
         const venueMarker = new google.maps.Marker({
-            animation: google.maps.Animation.DROP,
-            position: { lat: venueList[i].lat, lng: venueList[i].lng},
-            label: { text: venueList[i].displayName, color: "white"},
             map: map,
+            // Animation drops markers on coordinates 
+            animation: google.maps.Animation.DROP,
+            // Coordinates - lat and lng looped 
+            position: { lat: venueList[i].lat, lng: venueList[i].lng},
+            // Labels of venues associated with coordinates looped, font color white
+            label: { text: venueList[i].displayName, color: "white"},
         });
 
-        //setting up infoWindo
+        // Setting up infoWindow
         const venueName = new google.maps.InfoWindow({
             content: venueList[i].displayName,
         });
         
-        // event listner for marker 
+        // Event listener for marker 
         venueMarker.addListener("click", () => {
             venueName.open(map, venueMarker);
+            // Click takes user to event page for clicked venue
             window.location.href = "./event-list.html?vid=" + venueList[i].id;
         });
         
