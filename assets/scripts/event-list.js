@@ -1,4 +1,8 @@
-var venueID, currentPage;
+var venueID, totalPages, eventList;
+
+var currentPage = 1;
+
+const perPage = 10;
 
 const venDetailsEl = $("#details");
 const venImgEl = $("#ven-image");
@@ -23,8 +27,12 @@ function initPage() {
             .then(displayVenueDetails)
             .catch(console.error);
         skGetEventListFromVenue(venueID)
+            .then(list => eventList = list)
             .then(displayEventList)
             .catch(console.error);
+        
+        eventListEl.click(gotoEvent);
+        paginEl.click(handlePagination);
     }
     else {
         displayEmptiness();
@@ -55,7 +63,7 @@ async function displayVenueDetails(venueDetails) {
     venNameEl.text(venueDetails.displayName);
     venCapEl.text(venueDetails.capacity);
     venDescEl.text(venueDetails.description);
-    venAddrEl.text(venueDetails.street);
+    venAddrEl.text(`${venueDetails.street} ${venueDetails.metroArea.displayName}, ${venueDetails.metroArea.state.displayName} ${venueDetails.zip}`);
     venPhoneEl.text(venueDetails.phone);
     venWebEl.text(venueDetails.website);
     venWebEl.attr("href", venueDetails.website);
@@ -63,9 +71,11 @@ async function displayVenueDetails(venueDetails) {
 
 /*
 */
-async function displayEventList(eventList) {
+async function displayEventList() {
     console.log(eventList);
-    for (let i = 0; i < eventList.length; i++) {
+    eventListEl.empty();
+    totalPages = Math.ceil(eventList.length / 10);
+    for (let i = (currentPage - 1) * perPage; i < eventList.length && i < currentPage * perPage; i++) {
         let currentEventEl = $(`
             <li class="col s12 m6 xl4">
                 <div class="card black white-text" role="button">
@@ -88,6 +98,37 @@ async function displayEventList(eventList) {
         }
         eventListEl.append(currentEventEl);
     }
+    displayPagination();
+}
+
+function handlePagination(event) {
+    event.stopPropagation();
+    let target = $("li").has(event.target);
+    if (target.length) {
+        switch (target.attr("id")) {
+            case "left-arrow": changePage(currentPage - 1); break;
+            case "right-arrow": changePage(currentPage + 1); break;
+            default: changePage(parseInt(target.attr("data-value"))); break;
+        }
+    }
+}
+
+function displayPagination() {
+    paginEl.empty();
+    paginEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    for (var i = 1; i <= totalPages; i++) {
+        paginEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
+    }
+    paginEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+}
+
+function changePage(n) {
+    currentPage = Math.min(Math.max(1, n), totalPages);
+    displayEventList();
+}
+
+function gotoEvent(event) {
+
 }
 
 /*
