@@ -1,5 +1,8 @@
 body {
     background-image: url("../images/1701895714-huge.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .card {
