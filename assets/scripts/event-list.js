@@ -66,18 +66,27 @@ async function displayVenueDetails(venueDetails) {
 async function displayEventList(eventList) {
     console.log(eventList);
     for (let i = 0; i < eventList.length; i++) {
-        eventListEl.append(`
+        let currentEventEl = $(`
             <li class="col s12 m6 xl4">
                 <div class="card black white-text" role="button">
                     <div class="card-content">
-                        <img src="https://images.sk-static.com/images/media/profile_images/artists/${eventList[i].performance[0].artist.id}/huge_avatar" alt="Artist_IMAGE" class="responsive-img circle right artist-image">
-                        <span class="card-title">Event/Artist Name</span>
-                        <p>Showtime 7:30 PM</p>
-                        <p>Short description of artist.</p>
+                        <img src="https://images.sk-static.com/images/media/profile_images/artists/${eventList[i].performance[0].artist.id}/huge_avatar" alt="${eventList[i].performance[0].artist.displayName}" class="responsive-img circle right artist-image">
+                        <span class="card-title">${eventList[i].displayName}</span>
+                        <p>Showtime: ${moment(eventList[i].start.datetime).format("M/D/YYYY h:mm A")}</p>
+                        <ul class="artist-list"></ul>
                     </div>
                 </div>
             </li>
         `);
+        let content = $(".artist-list", currentEventEl);
+        for (let j = 0; j < eventList[i].performance.length; j++) {
+            content.append(`
+                <li>
+                    <p>${eventList[i].performance[j].artist.displayName}</p>
+                </li>
+            `);
+        }
+        eventListEl.append(currentEventEl);
     }
 }
 
