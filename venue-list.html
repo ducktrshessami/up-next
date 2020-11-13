@@ -13,41 +13,42 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-  <header>
-  <nav>
-    <div class="nav-wrapper">
-      <div id="nav-bar">
-      <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
-      <ul id="nav-mobile" class="right hide-on-small-only">
-        <li>
-            <form class="input-field">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
-              <i class="material-icons right">close</i>
-            </form>
-        </li>
-        <li><a href="venue-list.html">Venues</a></li>
-        <li><a href="event-list.html">Events</a></li>
-      </ul>
-    </div>
-    </div>
-  </nav>
-   <div class="row">
-</header>
-    <!-- Venue List table -->
-    <ul class="row" id="venue-list">
-      <!-- Venues go here -->
-    </ul>
-  
-    <!-- Venue list pagination -->
-    <div class="container center">
-        <ul class="pagination white-text" id="venue-pagination">
-          <!-- Pagination goes here -->
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <div id="nav-bar">
+                    <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-small-only">
+                        <li>
+                            <form class="input-field">
+                            <input id="search" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                            <i class="material-icons right">close</i>
+                            </form>
+                        </li>
+                        <li><a href="venue-list.html">Venues</a></li>
+                        <li><a href="event-list.html">Events</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="row"></div>
+    </header>
+    <main>
+        <!-- Venue List table -->
+        <ul class="row" id="venue-list">
+            <!-- Venues go here -->
         </ul>
-    </div>
-    <!-- Map div - div is empty so map can be appended here -->
-    <div class=container id="map"></div>
+        <!-- Venue list pagination -->
+        <div class="container center">
+            <ul class="pagination white-text" id="venue-pagination">
+                <!-- Pagination goes here -->
+            </ul>
+        </div>
+        <!-- Map div - div is empty so map can be appended here -->
+        <div class=container id="map"></div>
+    </main>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>

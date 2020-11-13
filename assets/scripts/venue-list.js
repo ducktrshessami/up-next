@@ -3,6 +3,7 @@ var coords, zipCode, totalPages, venueList;
 var currentPage = 1;
 
 const perPage = 10;
+const mainEl = $("main");
 const searchBarEl = $("#search");
 const venueListEl =$("#venue-list");
 const venuePaginationEl =$("#venue-pagination");
@@ -13,27 +14,33 @@ initPage();
 Initialize the page
 */
 async function initPage() {
-    handleArgs()
-        .then(zpGetCoords)
-        .then(c => coords = c)
-        .then(skGetEventListFromCoords)
-        .then(skGetVenueList)
-        .then(venues => { // Do simultaneously to reduce load
-            venueList = venues;
-            displayVenueList();
-            initMap();
-        })
-        .catch(displayError);
+    handleArgs();
+    if (zipCode) {
+        zpGetCoords(zipCode)
+            .then(c => coords = c)
+            .then(skGetEventListFromCoords)
+            .then(skGetVenueList)
+            .then(venues => { // Do simultaneously to reduce load
+                venueList = venues;
+                displayVenueList();
+                initMap();
+            })
+            .catch(displayError);
+
+        venueListEl.click(gotoVenue);
+        venuePaginationEl.click(handlePagination);
+    }
+    else {
+        displayEmptiness();
+    }
 
     $("form").submit(newSearch);
-    venueListEl.click(gotoVenue);
-    venuePaginationEl.click(handlePagination);
 }
 
 /*
 Handle query
 */
-async function handleArgs() {
+function handleArgs() {
     let params = new URLSearchParams(window.location.search);
     zipCode = params.get("q");
     if (zipCode) {
@@ -42,7 +49,6 @@ async function handleArgs() {
     else {
         zipCode = localStorage.getItem("lastSearch");
     }
-    return zipCode;
 }
 
 /*
@@ -147,6 +153,31 @@ async function initMap() {
     }
 }
 
+/*
+*/
+function displayEmptiness() {
+    mainEl.empty();
+    mainEl.append(`
+        <section class="row">
+            <div id="details" class="card col s10 m6 offset-s1 offset-m3 black white-text">
+                <div class="card-content">
+                    <h1 class="center"><a href="./index.html">Please search for a venue first</a></h1>
+                </div>
+            </div>
+        </section>
+    `);
+}
+
 function displayError() {
-    
+    mainEl.empty();
+    mainEl.append(`
+        <section class="row">
+            <div id="details" class="card col s10 m6 offset-s1 offset-m3 black white-text">
+                <div class="card-content center">
+                    <h1 class="center">An error occured.</h1>
+                    <h5>This can happen when something other than a ZIP code is entered, or when services used on this site are unavailable.</h5>
+                </div>
+            </div>
+        </section>
+    `);
 }
