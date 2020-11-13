@@ -1,8 +1,6 @@
-var coords, zipCode
+var coords, zipCode, totalPages, venueList;
 
 var currentPage = 1;
-
-var totalPages;
 
 const perPage = 10;
 const searchBarEl = $("#search");
@@ -20,31 +18,17 @@ async function initPage() {
         .then(c => coords = c)
         .then(skGetEventListFromCoords)
         .then(skGetVenueList)
-        .then(venueList => { // Do simultaneously to reduce load
-            displayVenueList(venueList);
-            initMap(venueList);
+        .then(venues => { // Do simultaneously to reduce load
+            venueList = venues;
+            displayVenueList();
+            initMap();
         })
         .catch(console.error);
 
     $("form").submit(newSearch);
     venueListEl.click(gotoVenue);
+    venuePaginationEl.click(handlePagination);
 }
-/*
-If my intuition is correct, we can remove &callback=initMap from the Google Maps
-script tag inside venue-list.html. Then we move the Google Maps script tag above
-this current script's tag as it was originally. Then this page's programming
-flows as follows:
-
-> HTML loads
-> Google Maps API loads (but doesn't call initMap)
-> venue-list.js begins
-> initPage gets called
-> displayVenueList gets called from within initPage
-> Venue list gets built and displayed
-> Map centered on stored coordinates gets created
-> Map markers for every venue in list gets created
-> Map gets displayed
-*/
 
 /*
 Handle query
@@ -63,7 +47,7 @@ async function handleArgs() {
 
 /*
 */
-async function displayVenueList(venueList) {
+async function displayVenueList() {
     //do stuff
     console.log(venueList);
     venueListEl.empty();
@@ -85,22 +69,29 @@ async function displayVenueList(venueList) {
     displayPagination();
 }
 
+function handlePagination(event) {
+    event.stopPropagation();
+    let target = $("li").has(event.target);
+    if (target.length) {
+        switch (target.attr("id")) {
+            case "left-arrow": changePage(currentPage - 1); break;
+            case "right-arrow": changePage(currentPage + 1); break;
+            default: changePage(parseInt(target.attr("data-value"))); break;
+        }
+    }
+}
+
 function displayPagination() {
     venuePaginationEl.empty();
-    venuePaginationEl.append(`<li id="left-arrow" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
-        venuePaginationEl.append(`<li class="active"><a href="#!"></a>${i}</li>`);
+        venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
     }
-    venuePaginationEl.append(`<li id="right-arrow" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+    venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
 }
 
-function nextPage() {
-    currentPage += 1;
-    displayVenueList();
-}
-
-function previousPage() {
-    currentPage -= 1;
+function changePage(n) {
+    currentPage = Math.min(Math.max(1, n), totalPages);
     displayVenueList();
 }
 
@@ -113,14 +104,14 @@ function newSearch(event) {
 
 function gotoVenue(event) {
     event.stopPropagation();
-    let button = checkAncestry("[role='button']", event.target);
-    if (button) {
-        window.location.href = "./event-list.html?vid=" + button.getAttribute("data-value");
+    let button = $("[role='button']").has(event.target);
+    if (button.length) {
+        window.location.href = "./event-list.html?vid=" + button.attr("data-value");
     }
 }
 
 // Initialize and add the map
-async function initMap(venueList) {   
+async function initMap() {   
     
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
@@ -150,16 +141,5 @@ async function initMap(venueList) {
             window.location.href = "./event-list.html?vid=" + venueList[i].id;
         });
         
-    }
-}
-
-function checkAncestry(selector, elem) {
-    let selected = $(selector);
-    if (selected.find(elem).length) {
-        for (let i = 0; i < selected.length; i++) {
-            if ($(selected[i]).find(elem).length) {
-                return selected[i];
-            }
-        }
     }
 }
