@@ -4,7 +4,6 @@ var currentPage = 1;
 
 const perPage = 10;
 const mainEl = $("main");
-const searchBarEl = $("#search");
 const venueListEl =$("#venue-list");
 const venuePaginationEl =$("#venue-pagination");
 
@@ -33,7 +32,6 @@ function initPage() {
     else {
         displayEmptiness();
     }
-    $("form").submit(newSearch); // Handle navbar search
 }
 
 /*
@@ -112,18 +110,6 @@ Page number automatically truncated to fit page list
 function changePage(n) {
     currentPage = Math.min(Math.max(1, n), totalPages);
     displayVenueList();
-}
-
-/*
-Handle navbar searches
-
-@param event: a submit even for the form that wraps the search bar in the navbar
-*/
-function newSearch(event) {
-    event.preventDefault();
-    if (searchBarEl.val()) {
-        window.location.href = "./venue-list.html?q=" + searchBarEl.val();
-    }
 }
 
 /*

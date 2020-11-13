@@ -18,17 +18,28 @@
             <div class="nav-wrapper">
                 <div id="nav-bar">
                     <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
-                    <ul id="nav-mobile" class="right hide-on-small-only">
+                    <a href="#" data-target="nav-mobile" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+                    <ul id="nav-desktop" class="right hide-on-small-only">
                         <li>
                             <form class="input-field">
-                            <input id="search" type="search" required>
-                            <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
-                            <i class="material-icons right">close</i>
+                              <input type="search" required>
+                              <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                              <i class="material-icons right">close</i>
                             </form>
                         </li>
                         <li><a href="venue-list.html">Venues</a></li>
                         <li><a href="event-list.html">Events</a></li>
+                    </ul>
+                    <ul id="nav-mobile" class="sidenav grey darken-4">
+                        <li>
+                            <form class="input-field">
+                              <input type="search" required>
+                              <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                              <i class="material-icons right">close</i>
+                            </form>
+                        </li>
+                        <li><a class="white-text" href="venue-list.html">Venues</a></li>
+                        <li><a class="white-text" href="event-list.html">Events</a></li>
                     </ul>
                 </div>
             </div>
@@ -63,13 +74,15 @@
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRtVsnMDPvOiPUwoGIrR3Kclk20nXYmpk"></script>
+    <!-- Materialize navbar -->
+    <script src="./assets/scripts/navbar.js"></script>
     <!-- Songkick API wrapper -->
     <script src="./assets/scripts/songkick.js"></script>
     <!-- venue-list.js -->
     <script src="./assets/scripts/venue-list.js"></script>
-    <!-- Materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
