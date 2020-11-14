@@ -31,15 +31,34 @@ function zpGetCoords(zip) {
 /*
 Songkick API call to search for events from a location
 Only events that have a venue and are of status "ok" are returned
+
+@param coords: an object {lat: float, lng: float}
+
+@return: a Promise<Array<object>> that resolves in the list of events in the vicinity of the given coordinates
 */
 function skGetEventListFromCoords(coords) {
     return skGetEventList(`https://api.songkick.com/api/3.0/events.json?apikey=${skapi1}&location=geo:${coords.lat},${coords.lng}&per_page=${skPerPage}`);
 }
 
+/*
+Similar to skGetEventListFromCoords, except that it takes a venue's ID
+
+@param venueID: a string containing the venue's ID
+
+@return: a Promise<Array<object>> that resolves in the list of events at the specified venue
+*/
 function skGetEventListFromVenue(venueID) {
     return skGetEventList(`https://api.songkick.com/api/3.0/venues/${venueID}/calendar.json?apikey=${skapi1}&per_page=${skPerPage}`);
 }
 
+/*
+The meat of skGetEventListFromCoords and skGetEventListFromVenue
+Handles the Songkick API call and data parsing
+
+@param queryURL: a string containing the URL to make a call to
+
+@return: a Promise<Array<object>> that resolves in the list of events based on the call URL
+*/
 function skGetEventList(queryURL) {
     return new Promise(async function(resolve, reject) {
         let maxPages = 1;
@@ -53,7 +72,7 @@ function skGetEventList(queryURL) {
             results = results.concat(
                 await Promise.all(
                     currentPage.resultsPage.results.event
-                        .filter(e => e.status == "ok" && e.venue.id)
+                        .filter(e => e.status == "ok" && e.venue.id && e.performance.length) // Filter results
                         .map(e => skGetEventDetails(e.id))
                 )
             );

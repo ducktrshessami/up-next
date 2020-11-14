@@ -1,11 +1,9 @@
-var coords, zipCode
+var coords, zipCode, totalPages, venueList;
 
 var currentPage = 1;
 
-var totalPages;
-
 const perPage = 10;
-const searchBarEl = $("#search");
+const mainEl = $("main");
 const venueListEl =$("#venue-list");
 const venuePaginationEl =$("#venue-pagination");
 
@@ -14,42 +12,32 @@ initPage();
 /*
 Initialize the page
 */
-async function initPage() {
-    handleArgs()
-        .then(zpGetCoords)
-        .then(c => coords = c)
-        .then(skGetEventListFromCoords)
-        .then(skGetVenueList)
-        .then(venueList => { // Do simultaneously to reduce load
-            displayVenueList(venueList);
-            initMap(venueList);
-        })
-        .catch(console.error);
+function initPage() {
+    handleArgs();
+    if (zipCode) {
+        zpGetCoords(zipCode)
+            .then(c => coords = c)
+            .then(skGetEventListFromCoords)
+            .then(skGetVenueList)
+            .then(venues => { // Do simultaneously to reduce load
+                venueList = venues;
+                displayVenueList();
+                initMap();
+            })
+            .catch(displayError);
 
-    $("form").submit(newSearch);
-    venueListEl.click(gotoVenue);
+        venueListEl.click(gotoVenue); // Handle click events
+        venuePaginationEl.click(handlePagination);
+    }
+    else {
+        displayEmptiness();
+    }
 }
-/*
-If my intuition is correct, we can remove &callback=initMap from the Google Maps
-script tag inside venue-list.html. Then we move the Google Maps script tag above
-this current script's tag as it was originally. Then this page's programming
-flows as follows:
-
-> HTML loads
-> Google Maps API loads (but doesn't call initMap)
-> venue-list.js begins
-> initPage gets called
-> displayVenueList gets called from within initPage
-> Venue list gets built and displayed
-> Map centered on stored coordinates gets created
-> Map markers for every venue in list gets created
-> Map gets displayed
-*/
 
 /*
-Handle query
+Handle URL params and stored recent search
 */
-async function handleArgs() {
+function handleArgs() {
     let params = new URLSearchParams(window.location.search);
     zipCode = params.get("q");
     if (zipCode) {
@@ -58,14 +46,13 @@ async function handleArgs() {
     else {
         zipCode = localStorage.getItem("lastSearch");
     }
-    return zipCode;
 }
 
 /*
+Display a cached venue list on the page
+Asynchronous to reduce load times
 */
-async function displayVenueList(venueList) {
-    //do stuff
-    console.log(venueList);
+async function displayVenueList() {
     venueListEl.empty();
     totalPages = Math.ceil(venueList.length / 10); 
     for (var i = (currentPage - 1) * perPage; i < venueList.length && i < currentPage * perPage; i++) {
@@ -82,84 +69,136 @@ async function displayVenueList(venueList) {
             </li>
         `);
     }
-    displayPagination();
+    displayPagination(); // Do after getting data and total page count
 }
 
+/*
+Handle clicking on pagination
+
+@param event: a mouse click event
+*/
+function handlePagination(event) {
+    event.stopPropagation();
+    let target = $("li").has(event.target);
+    if (target.length) {
+        switch (target.attr("id")) {
+            case "left-arrow": changePage(currentPage - 1); break;
+            case "right-arrow": changePage(currentPage + 1); break;
+            default: changePage(parseInt(target.attr("data-value"))); break;
+        }
+    }
+}
+
+/*
+Display page numbers and arrows with proper styling
+*/
 function displayPagination() {
     venuePaginationEl.empty();
+<<<<<<< HEAD
     venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
         venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}"><a href="#!"></a>${i}</li>`);
+=======
+    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_left</i></a></li>`);
+    for (var i = 1; i <= totalPages; i++) {
+        venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
+>>>>>>> c8d1faa39c04f5cab03f1df15c19d9c00798a635
     }
-    venuePaginationEl.append(`<li id="right-arrow" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
+    venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_right</i></a></li>`);
 }
 
-function nextPage() {
-    currentPage += 1;
+/*
+Change page of venue list display
+Page number automatically truncated to fit page list
+
+@param n: a number containing the page number to change to
+*/
+function changePage(n) {
+    currentPage = Math.min(Math.max(1, n), totalPages);
     displayVenueList();
 }
 
-function previousPage() {
-    currentPage -= 1;
-    displayVenueList();
-}
+/*
+Handle clicking on a venue card and redirect to the event list
 
-function newSearch(event) {
-    event.preventDefault();
-    if (searchBarEl.val()) {
-        window.location.href = "./venue-list.html?q=" + searchBarEl.val();
-    }
-}
-
+@param event: a click event
+*/
 function gotoVenue(event) {
     event.stopPropagation();
-    let button = checkAncestry("[role='button']", event.target);
-    if (button) {
-        window.location.href = "./event-list.html?vid=" + button.getAttribute("data-value");
+    let button = $("[role='button']").has(event.target);
+    if (button.length) {
+        window.location.href = "./event-list.html?vid=" + button.attr("data-value");
     }
 }
 
 // Initialize and add the map
-async function initMap(venueList) {   
-    
+async function initMap() {   
+    // Creates map in map id
     const map = new google.maps.Map(document.getElementById("map"), {
+        // Map zoom
         zoom: 10,
-        //center: coordinate of searched zip code,
+        // Centers map on coordinate of searched zip code,
         center: coords,
     });
 
 
-    // loop all lats and lngs for venues
-    for (var i = 0; i < venueList.length; i++) {
-        // set markers on coordinates
+    // For loop will loop lat, lng, displayName, and id
+    for (let i = 0; i < venueList.length; i++) {
+        // Set markers on coordinates
         const venueMarker = new google.maps.Marker({
-            animation: google.maps.Animation.DROP,
-            position: { lat: venueList[i].lat, lng: venueList[i].lng},
-            label: { text: venueList[i].displayName, color: "white"},
             map: map,
+            // Animation drops markers on coordinates 
+            animation: google.maps.Animation.DROP,
+            // Coordinates - lat and lng looped 
+            position: { lat: venueList[i].lat, lng: venueList[i].lng},
+            // Labels of venues associated with coordinates looped, font color white
+            label: { text: venueList[i].displayName, color: "white"},
         });
 
-        //setting up infoWindo
+        // Setting up infoWindow
         const venueName = new google.maps.InfoWindow({
             content: venueList[i].displayName,
         });
         
-        // event listner for marker 
+        // Event listener for marker 
         venueMarker.addListener("click", () => {
             venueName.open(map, venueMarker);
-            gotoVenue();
+            // Click takes user to event page for clicked venue
+            window.location.href = "./event-list.html?vid=" + venueList[i].id;
         });
         
     }
 }
 
-function checkAncestry(selector, elem) {
-    let selected = $(selector);
-    if (selected.find(elem).length) {
-        for (let i = 0; i < selected.length; i++) {
-            if ($(selected[i]).find(elem).length) {
-                return selected[i];
-            }
-        }
-    }
+/*
+Display message pertaining to the lack of search query
+*/
+function displayEmptiness() {
+    mainEl.empty();
+    mainEl.append(`
+        <section class="row">
+            <div id="details" class="card col s10 m6 offset-s1 offset-m3 black white-text">
+                <div class="card-content">
+                    <h1 class="center"><a href="./index.html">Please search for a venue first</a></h1>
+                </div>
+            </div>
+        </section>
+    `);
+}
+
+/*
+Display a message explaining possible errors
+*/
+function displayError() {
+    mainEl.empty();
+    mainEl.append(`
+        <section class="row">
+            <div id="details" class="card col s10 m6 offset-s1 offset-m3 black white-text">
+                <div class="card-content center">
+                    <h1 class="center">An error occured.</h1>
+                    <h5>This can happen when something other than a ZIP code is entered, or when services used on this site are unavailable.</h5>
+                </div>
+            </div>
+        </section>
+    `);
 }

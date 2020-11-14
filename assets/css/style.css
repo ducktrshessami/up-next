@@ -1,11 +1,13 @@
 body {
     background-image: url("../images/1701895714-huge.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .card {
-  opacity: 75%;
-  border: 1px solid white;
-
+    opacity: 75%;
+    border: 1px solid white;
 }
 
 #map {
@@ -27,6 +29,7 @@ body {
     padding-left: 0px;
     padding-right: 0px;
 }
+
 #nav-bar {
     padding-left: 10px;
     padding-right: 10px;
@@ -34,10 +37,21 @@ body {
     background-color: black;
     padding-top: 10px;
 }
+
 .input-field {
     opacity: 60%;
 }
 
 [role="button"] {
     cursor: pointer;
+}
+
+.artist-image {
+    width: 64px;
+    height: auto;
+}
+
+.loading {
+    margin-top: 10vh;
+    left: 50%;
 }

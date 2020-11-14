@@ -14,35 +14,48 @@
 </head>
 <body>
     <header>
-      <nav>
-        <div class="nav-wrapper">
-          <div id="nav-bar">
-          <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-small-only">
-            <li>
-                <div class="input-field">
-                  <input id="search" type="search" required>
-                  <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
-                  <i class="material-icons right">close</i>
+        <nav>
+            <div class="nav-wrapper">
+                <div id="nav-bar">
+                    <img src="assets/images/Up Next Logo_white.png" class="nav-logo">
+                    <a href="#" data-target="nav-mobile" class="sidenav-trigger right hide-on-med-and-up"><i class="material-icons">menu</i></a>
+                    <ul id="nav-desktop" class="right hide-on-small-only">
+                        <li>
+                            <form class="input-field">
+                              <input type="search" required>
+                              <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                              <i class="material-icons right">close</i>
+                            </form>
+                        </li>
+                        <li><a href="venue-list.html">Venues</a></li>
+                        <li><a href="event-list.html">Events</a></li>
+                    </ul>
+                    <!-- A separate nav for mobile users -->
+                    <ul id="nav-mobile" class="sidenav grey darken-4">
+                        <li>
+                            <form class="input-field">
+                              <input type="search" required>
+                              <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                              <i class="material-icons right">close</i>
+                            </form>
+                        </li>
+                        <li><a class="white-text" href="venue-list.html">Venues</a></li>
+                        <li><a class="white-text" href="event-list.html">Events</a></li>
+                    </ul>
                 </div>
-            </li>
-            <li><a href="venue-list.html">Venues</a></li>
-            <li><a href="event-list.html">Events</a></li>
-          </ul>
-        </div>
-        </div>
-      </nav>
-      <div class="row"></div>
+            </div>
+        </nav>
+        <div class="row"></div>
     </header>
     <main>
+        <!-- Selected venue details -->
         <section class="row">
             <div id="details" class="card col s10 m6 offset-s1 offset-m3 black white-text">
                 <div class="card-content">
                     <img id="ven-image" class="card-image venue-image">
                     <h1 id="ven-name" class="card-title"></h1>
                     <br>
-                    <p>Capacity: <span id="ven-cap"></span></p>
+                    <p id="ven-cap"></p>
                     <br>
                     <p id="ven-desc"></p>
                     <br>
@@ -54,16 +67,23 @@
             </div>
         </section>
         <div class="container center">
-            <ul class="pagination" id="event-pagination">
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!">2</a></li>
-                <li class="waves-effect"><a href="#!">3</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <ul class="pagination white-text" id="event-pagination">
+                <!-- Page numbers go here -->
             </ul>
         </div>
         <ul class="row" id="event-list">
-          <!-- Events go here -->
+            <div class="preloader-wrapper big active loading">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Events go here -->
         </ul>
     </main>
 
@@ -71,6 +91,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <!-- Materialize navbar -->
+    <script src="./assets/scripts/navbar.js"></script>
     <!-- Songkick API wrapper -->
     <script src="./assets/scripts/songkick.js"></script>
     <!-- event-list.js -->
