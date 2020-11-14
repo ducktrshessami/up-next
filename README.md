@@ -46,6 +46,21 @@ THEN I am redirected to purchase tickets for the show
 
 ---
 
+## Credits
+Thank you for all your help and Support!
+<br>
+[Robert Ortiz](https://github.com/RobOrtiz)
+<br>
+[Nick Penaloza](https://github.com/ndpenaloza)
+<br>
+[Emily Thomas](https://github.com/ethomas22)
+<br>
+[Josh Wee](https://github.com/ducktrshessami)
+<br>
+## License
+[MIT License](https://opensource.org/licenses/MIT)
+
+
 Powered by [Songkick](https://www.songkick.com/developer/), [Google Maps](https://developers.google.com/maps/), 
 [Moment.js](https://www.momentjs.com),
 and [Zippopotam.us](http://www.zippopotam.us/)
