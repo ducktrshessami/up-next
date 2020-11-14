@@ -87,9 +87,9 @@ async function displayVenueList(venueList) {
 
 function displayPagination() {
     venuePaginationEl.empty();
-    venuePaginationEl.append(`<li id="left-arrow" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
+    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
-        venuePaginationEl.append(`<li class="active"><a href="#!"></a>${i}</li>`);
+        venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}"><a href="#!"></a>${i}</li>`);
     }
     venuePaginationEl.append(`<li id="right-arrow" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`);
 }
