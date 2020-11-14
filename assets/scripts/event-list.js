@@ -62,7 +62,7 @@ async function displayVenueDetails(venueDetails) {
     venImgEl.attr("src", `https://images.sk-static.com/images/media/profile_images/venues/${venueID}/col6`);
     venImgEl.attr("alt", venueDetails.displayName);
     venNameEl.text(venueDetails.displayName);
-    venCapEl.text(venueDetails.capacity);
+    venCapEl.text("Capacity: " + (venueDetails.capacity ? venueDetails.capacity : "N/A"));
     venDescEl.text(venueDetails.description);
     venAddrEl.text(`${venueDetails.street} ${venueDetails.metroArea.displayName}, ${venueDetails.metroArea.state.displayName} ${venueDetails.zip}`);
     venPhoneEl.text(venueDetails.phone);
