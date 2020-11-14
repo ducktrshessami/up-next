@@ -28,6 +28,22 @@ WHEN I select a show
 THEN I am redirected to purchase tickets for the show
 ```
 
+# Screenshots
+
+<details>
+
+<summary>Expand/Collapse</summary>
+
+![Homepage](./assets/images/sc1.png)
+
+![Venue list](./assets/images/sc2.png)
+
+![Event list](./assets/images/sc3.png)
+
+</details>
+
+---
+
 Powered by [Songkick](https://www.songkick.com/developer/), [Google Maps](https://developers.google.com/maps/), 
 [Moment.js](https://www.momentjs.com),
 and [Zippopotam.us](http://www.zippopotam.us/)
