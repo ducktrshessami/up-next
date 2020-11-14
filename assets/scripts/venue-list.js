@@ -94,15 +94,9 @@ Display page numbers and arrows with proper styling
 */
 function displayPagination() {
     venuePaginationEl.empty();
-<<<<<<< HEAD
-    venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a href="#!"><i class="material-icons">chevron_left</i></a></li>`);
-    for (var i = 1; i <= totalPages; i++) {
-        venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}"><a href="#!"></a>${i}</li>`);
-=======
     venuePaginationEl.append(`<li id="left-arrow" class="${currentPage == 1 ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_left</i></a></li>`);
     for (var i = 1; i <= totalPages; i++) {
         venuePaginationEl.append(`<li class="${i == currentPage ? "active" : "waves-effect"}" data-value="${i}"><a>${i}</a></li>`);
->>>>>>> c8d1faa39c04f5cab03f1df15c19d9c00798a635
     }
     venuePaginationEl.append(`<li id="right-arrow" class="${currentPage == totalPages ? "disabled" : "waves-effect"}"><a><i class="material-icons">chevron_right</i></a></li>`);
 }
